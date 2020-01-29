@@ -6,9 +6,8 @@ import styled, { createGlobalStyle } from 'styled-components'
 import { TransitionGroup, CSSTransition } from "react-transition-group"; // animate transitions, not really using this rn
 import { ParallaxProvider} from 'react-scroll-parallax'; // fancy parallax scroll
 import { Waypoint } from 'react-waypoint'; //use this to change background when scrolling between sections
-import { useScrollPosition } from '@n8tb1t/use-scroll-position' // use this to detect viewport scroll and intercept in project section
 import { HashLink as Link } from 'react-router-hash-link'
-import { Layout } from './Layout'
+import ScrollMaster from './ScrollMaster'
 
 const GlobalStyles = createGlobalStyle`
   @import url("https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700&display=swap");
@@ -27,25 +26,11 @@ const GlobalStyles = createGlobalStyle`
 `
 
 function App() {
-  const [percentScrolled, setPercentScrolled] = useState(0)
-  const [scrollPos, setScrollPos] = useState(0)
-
-  useScrollPosition(({ prevPos, currPos }) => {
-    console.log(currPos.y)
-    setScrollPos(currPos.y)
-  })
-  useEffect(() => {
-    console.log('thisisworking')
-    setPercentScrolled(0)
-    console.log(percentScrolled)
-
-
-  },[scrollPos])
   return (
     <ParallaxProvider>
       <GlobalStyles />
       <Router>
-        <Layout />
+        <ScrollMaster />
       </Router>
     </ParallaxProvider>
   );

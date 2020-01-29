@@ -1,4 +1,4 @@
-import React, { useState, useLayoutEffect, useRef } from 'react'
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react'
 import styled from 'styled-components'
 import About from './About'
 import Projects from './Projects'
@@ -6,13 +6,18 @@ import Glossary from './Glossary'
 import Resources from './Resources'
 import NavMenu from './NavMenu'
 
-export const Layout = () => {
+export default function Layout({scrollPercentage}){
   const heightRef = useRef()
   const [dimensions, setDimensions] = useState({width:0,height:0})
   useLayoutEffect(()=>{
     setDimensions(heightRef.current.getBoundingClientRect())
   },[heightRef.current])
   console.log(dimensions)
+//
+//   useEffect(() => {
+//     window.scrollTo(0, scrollPercentage)
+// },[scrollPercentage])
+
   return(
     <div ref={heightRef}>
       <Grid>
@@ -21,8 +26,13 @@ export const Layout = () => {
           </Nav>
           <Pages>
             <About />
+            <div></div>
+            // work in layout and scrollmaster. use state not ref becasue I do want to trigger a rerender
+            // get heights of subsections in scrollmaster
             <Projects />
+            <div></div>
             <Glossary />
+            <div></div>
             <Resources />
           </Pages>
       </Grid>
